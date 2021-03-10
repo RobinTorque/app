@@ -37,9 +37,14 @@ import {
 } from '../../../../constants';
 import { ITokenResponse } from '../../../../utils/interfaces';
 import TokenAvatar from '../../../../components/TokenAvatar';
-import { getIcon, getPageTitle } from '../../../../utils/utility';
+import {
+  getIcon,
+  getNetworkType,
+  getPageTitle,
+} from '../../../../utils/utility';
 import Header from '../../../HeaderComponent';
 import ViewOnChain from '../../../../components/ViewOnChain';
+import PersistentStore from 'src/utils/persistentStore';
 
 interface RouteParams {
   id?: string;
@@ -134,6 +139,13 @@ const TokenInfo: React.FunctionComponent<TokenInfoProps> = (
       );
     }
   };
+
+  useEffect(() => {
+    const network = getNetworkType();
+    if (PersistentStore.get(`sendCountdown${network}`) !== 'true') {
+      setWait(0);
+    }
+  });
 
   return (
     <div className='main-wrapper'>

@@ -18,9 +18,10 @@ import { MasterNodeObject } from '../../masterNodeInterface';
 import { resignMasterNode } from '../../reducer';
 import styles from '../../masternode.module.scss';
 import Header from '../../../HeaderComponent';
-import { getPageTitle } from '../../../../utils/utility';
+import { getNetworkType, getPageTitle } from '../../../../utils/utility';
 import { MasterNodesPageStates } from '../..';
 import ViewOnChain from '../../../../components/ViewOnChain';
+import PersistentStore from 'src/utils/persistentStore';
 interface RouteProps {
   hash: string;
 }
@@ -112,6 +113,13 @@ const MasterNodeDetailPage: React.FunctionComponent<MasterNodeDetailPageProps> =
       clearInterval(waitToSendInterval);
     };
   }, [isConfirmationModalOpen]);
+
+  useEffect(() => {
+    const network = getNetworkType();
+    if (PersistentStore.get(`sendCountdown${network}`) !== 'true') {
+      setWait(0);
+    }
+  });
 
   return (
     <div className='main-wrapper'>

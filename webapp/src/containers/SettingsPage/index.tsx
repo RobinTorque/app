@@ -41,6 +41,7 @@ interface SettingsPageProps {
     maximumCount: number;
     feeRate: number;
     reindexAfterSaving: boolean;
+    sendCountdown: boolean;
   };
   isUpdating: boolean;
   isUpdated: boolean;
@@ -55,6 +56,7 @@ interface SettingsPageProps {
   isRefreshUtxosModalOpen: boolean;
   isWalletEncrypted: boolean;
   isWalletCreatedFlag: boolean;
+  sendCountdown: boolean;
 }
 
 interface SettingsPageState {
@@ -75,6 +77,7 @@ interface SettingsPageState {
   maximumCount?: number;
   feeRate?: number | string;
   isUnsavedChanges: boolean;
+  sendCountdown: boolean;
 }
 
 const SettingsPage: React.FunctionComponent<SettingsPageProps> = (
@@ -209,6 +212,7 @@ const SettingsPage: React.FunctionComponent<SettingsPageProps> = (
       'maximumAmount',
       'maximumCount',
       'feeRate',
+      'sendCountdown',
     ];
 
     let isUnsavedChanges = false;
@@ -243,6 +247,7 @@ const SettingsPage: React.FunctionComponent<SettingsPageProps> = (
       maximumAmount,
       maximumCount,
       feeRate,
+      sendCountdown,
     } = state;
 
     const settings = {
@@ -262,6 +267,7 @@ const SettingsPage: React.FunctionComponent<SettingsPageProps> = (
       feeRate,
       reindexAfterSaving: reindexAfterSaving,
       refreshUtxosAfterSaving,
+      sendCountdown,
     };
     props.updateSettings(settings);
   };
@@ -283,6 +289,7 @@ const SettingsPage: React.FunctionComponent<SettingsPageProps> = (
     unit,
     displayMode,
     network,
+    sendCountdown,
   } = state;
 
   return (
@@ -329,10 +336,9 @@ const SettingsPage: React.FunctionComponent<SettingsPageProps> = (
             handleDropDowns={handleDropDowns}
             handeReindexToggle={handeReindexToggle}
             handeRefreshUtxosToggle={handeRefreshUtxosToggle}
+            sendCountdown={sendCountdown}
           />
-          {props.isWalletCreatedFlag && props.isWalletEncrypted && (
-            <SettingsTabSecurity />
-          )}
+          <SettingsTabSecurity />
           <SettingsTabDisplay
             language={language!}
             unit={unit!}

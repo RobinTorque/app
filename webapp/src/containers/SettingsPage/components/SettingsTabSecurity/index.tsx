@@ -11,6 +11,7 @@ import { setDefaultLockTimeout, setLockoutTimeList } from '../../reducer';
 import { TimeoutLockEnum } from '../../types';
 import { RootState } from '../../../../app/rootTypes';
 import styles from './settingsTabSecurity.module.scss';
+import SettingsRowToggle from '../SettingsRowToggle';
 
 const timeoutLabel = 'containers.settings.minutes';
 
@@ -91,8 +92,10 @@ const SettingsTabSecurity: React.FunctionComponent = () => {
           <Row>
             <Col md='12'>
               <FormGroup className='form-row align-items-center'>
-                <Col md='4'></Col>
-                <Col md='8'>
+                <Col md='4'>
+                  {I18n.t('containers.settings.lockWithPassphrase')}
+                </Col>
+                <Col md='8' className='mt-4'>
                   <Button
                     color='link'
                     to={SETTINGS_CHANGE_PASSPHRASE}
@@ -100,8 +103,16 @@ const SettingsTabSecurity: React.FunctionComponent = () => {
                     className='text-uppercase pl-0'
                     size='md'
                   >
-                    {I18n.t('containers.settings.changePassphrase')}
+                    <SettingsRowToggle
+                      // handleToggles={handleToggles}
+                      label={'changePassphrase'}
+                      // field={changePassphrase}
+                      // fieldName={'changePassphrase'}
+                    />
                   </Button>
+                </Col>
+                <Col md='12' className={styles.smallText}>
+                  {I18n.t('containers.settings.passpharaseInfo')}
                 </Col>
               </FormGroup>
             </Col>

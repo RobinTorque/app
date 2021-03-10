@@ -56,6 +56,7 @@ const SettingsTabDisplay = (props: SettingsTabDisplayProps) => {
             handleDropDowns={handleDropDowns}
             fieldName={'language'}
           />
+          {/* need to remove Dfi functionality */}
           {/* <SettingsRowDropDown
             label={'containers.settings.displayAmount'}
             data={amountUnits}

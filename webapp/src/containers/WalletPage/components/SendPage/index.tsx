@@ -44,6 +44,7 @@ import {
   getSymbolKey,
   isLessThanDustAmount,
   isValidAddress,
+  getNetworkType,
 } from '../../../../utils/utility';
 import qs from 'querystring';
 import styles from '../../WalletPage.module.scss';
@@ -53,6 +54,7 @@ import NumberMask from '../../../../components/NumberMask';
 import SendLPWarning from './SendLPWarning';
 import ViewOnChain from '../../../../components/ViewOnChain';
 import { ErrorMessages, ResponseMessages } from '../../../../constants/common';
+import PersistentStore from 'src/utils/persistentStore';
 const shutterSnap = new UIfx(shutterSound);
 
 interface SendPageProps {
@@ -133,6 +135,24 @@ class SendPage extends Component<SendPageProps, SendPageState> {
 
   componentDidMount() {
     this.props.fetchSendDataRequest();
+    const network = getNetworkType();
+    if (PersistentStore.get(`sendCountdown${network}`) !== 'true') {
+      this.state.waitToSend = 0;
+    }
+  }
+
+  // componentWillUnmount(){
+  //   const network = getNetworkType()
+  //   if(PersistentStore.get(`sendCountdown${network}`) == 'true'){
+  //     this.state.waitToSend = 0
+  //   }
+  // }
+
+  componentDidUpdate() {
+    const network = getNetworkType();
+    if (PersistentStore.get(`sendCountdown${network}`) !== 'true') {
+      this.state.waitToSend = 0;
+    }
   }
 
   updateAmountToSend = (e) => {

@@ -23,11 +23,12 @@ import { fetchMasternodesRequest } from './reducer';
 import { MasterNodeObject } from './masterNodeInterface';
 import usePrevious from '../../components/UsePrevious';
 import Header from '../HeaderComponent';
-import { getPageTitle } from '../../utils/utility';
+import { getNetworkType, getPageTitle } from '../../utils/utility';
 import MasterNodeTabsHeader from './components/MasterNodeTabHeader';
 import MineNodeList from './components/MineNodeList';
 import MineNodeFooter from './components/MineNodeFooter';
 import { RootState } from '../../app/rootTypes';
+import PersistentStore from 'src/utils/persistentStore';
 
 export enum MasterNodesPageStates {
   default = 'default',
@@ -185,6 +186,13 @@ const MasternodesPage: React.FunctionComponent = () => {
       setIsConfirmationModalOpen(MasterNodesPageStates.failure);
     }
   };
+
+  useEffect(() => {
+    const network = getNetworkType();
+    if (PersistentStore.get(`sendCountdown${network}`) !== 'true') {
+      setWait(0);
+    }
+  });
 
   return (
     <div className='main-wrapper'>

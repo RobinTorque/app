@@ -101,6 +101,7 @@ export const getNetWorkList = () => {
 
 export const initialData = () => {
   const launchStat = getPreLaunchStatus();
+  let network = getNetworkType();
   const settings = {
     language: PersistentStore.get(LANG_VARIABLE) || ENGLISH,
     unit: getAppConfigUnit(),
@@ -116,6 +117,7 @@ export const initialData = () => {
     maximumAmount: getAppConfigMaximumAmount(),
     maximumCount: getAppConfigMaximumCount(),
     feeRate: getAppConfigFeeRate(),
+    sendCountdown: PersistentStore.get(`sendCountdown${network}`) === 'true',
   };
   return settings;
 };

@@ -47,7 +47,7 @@ import {
 } from '../../constants';
 import { fetchWalletMapRequest, lockWalletStart } from '../WalletPage/reducer';
 import { history } from '../../utils/history';
-import { remapNodeError } from '../../utils/utility';
+import { getNetworkType, remapNodeError } from '../../utils/utility';
 import { CONFIG_DISABLED, CONFIG_ENABLED } from '@defi_types/rpcConfig';
 
 export function* getSettingsOptions() {
@@ -133,6 +133,15 @@ export function* updateSettings(action) {
       }
       if (data.refreshUtxosAfterSaving) {
         yield call(refreshUtxosAfterSavingData);
+      }
+      let network = getNetworkType();
+      if (
+        PersistentStore.get(`sendCountdown${network}`) !==
+        action.payload.sendCountdown
+      ) {
+        PersistentStore.set(`sendCountdown${network}`, data.sendCountdown);
+      } else {
+        PersistentStore.set(`sendCountdown${network}`, true);
       }
     } else {
       yield put({

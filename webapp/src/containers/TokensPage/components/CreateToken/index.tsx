@@ -17,6 +17,8 @@ import {
 import { ITokenResponse } from '../../../../utils/interfaces';
 import { PaymentRequestModel } from '../../../WalletPage/components/ReceivePage/PaymentRequestList';
 import { AddressModel } from '../../../../model/address.model';
+import { getNetworkType } from 'src/utils/utility';
+import PersistentStore from 'src/utils/persistentStore';
 
 interface RouteParams {
   id?: string;
@@ -206,6 +208,13 @@ const CreateToken: React.FunctionComponent<CreateTokenProps> = (
     const tokenData = createTokenData();
     createToken(tokenData);
   };
+
+  useEffect(() => {
+    const network = getNetworkType();
+    if (PersistentStore.get(`sendCountdown${network}`) !== 'true') {
+      setWait(0);
+    }
+  });
 
   return (
     <TabContent activeTab={activeTab}>

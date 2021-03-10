@@ -30,8 +30,13 @@ import { connect } from 'react-redux';
 import { mintToken } from '../../reducer';
 import { isEmpty } from 'lodash';
 import Header from '../../../HeaderComponent';
-import { getPageTitle, getSymbolKey } from '../../../../utils/utility';
+import {
+  getNetworkType,
+  getPageTitle,
+  getSymbolKey,
+} from '../../../../utils/utility';
 import ViewOnChain from '../../../../components/ViewOnChain';
+import PersistentStore from 'src/utils/persistentStore';
 
 interface RouteParams {
   id?: string;
@@ -110,6 +115,13 @@ const MintToken: React.FunctionComponent<MintTokenProps> = (
       },
     });
   };
+
+  useEffect(() => {
+    const network = getNetworkType();
+    if (PersistentStore.get(`sendCountdown${network}`) !== 'true') {
+      setWait(0);
+    }
+  });
 
   return (
     <div className='main-wrapper'>

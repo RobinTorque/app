@@ -34,20 +34,20 @@ const SettingsTabsHeader = (props: SettingsTabsHeaderProps) => {
             {I18n.t('containers.settings.general')}
           </NavLink>
         </NavItem>
-        {displaySecurityTab && (
-          <NavItem>
-            <NavLink
-              className={classnames({
-                active: activeTab === SettingsTabs.security,
-              })}
-              onClick={() => {
-                setActiveTab(SettingsTabs.security);
-              }}
-            >
-              {I18n.t('containers.settings.security')}
-            </NavLink>
-          </NavItem>
-        )}
+
+        {/* discard changes */}
+        <NavItem>
+          <NavLink
+            className={classnames({
+              active: activeTab === SettingsTabs.security,
+            })}
+            onClick={() => {
+              setActiveTab(SettingsTabs.security);
+            }}
+          >
+            {I18n.t('containers.settings.security')}
+          </NavLink>
+        </NavItem>
 
         <NavItem>
           <NavLink

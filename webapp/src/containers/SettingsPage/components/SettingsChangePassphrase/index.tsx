@@ -127,7 +127,6 @@ const SettingsChangePassphrase: React.FunctionComponent = () => {
                     <InputPassword
                       label='containers.settings.newPassphrase'
                       id={PasswordFormEnum.passphrase}
-                      hasStrengthChecker={true}
                       strengthScore={getPasswordStrength(value)}
                       name={PasswordFormEnum.passphrase}
                       onChange={(e) => {
