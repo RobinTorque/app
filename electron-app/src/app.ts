@@ -33,6 +33,7 @@ import {
 import { LOGGING_SHUT_DOWN } from '@defi_types/loggingMethodSource';
 import { checkWalletConfig, initializeWalletMap } from './controllers/wallets';
 import Uiconfig from './services/uiconfig';
+require('@electron/remote/main').initialize();
 
 declare var process: {
   argv: any;
