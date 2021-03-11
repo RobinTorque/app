@@ -80,7 +80,7 @@ export const createDir = (dirPath: string) => {
 
 // Get file data
 export const getFileData = (filePath: string, format: string = 'utf-8') => {
-  const fileData = fs.readFileSync(filePath, format);
+  const fileData = fs.readFileSync(filePath, { encoding: format });
   return formatConfigFileRead(fileData);
 };
 
